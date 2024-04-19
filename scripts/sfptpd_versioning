@@ -70,19 +70,18 @@ derive_version () {
     vars_date=$(field vcs-date < $1)
     vars_id=$(field vcs-id < $1)
   fi
-  if ! { vcs_date=$(git log -1 --pretty=format:%cs) && \
-         vcs_id=$(git log -1 --pretty=format:%h); } && \
-        [ -z "${vars_date:-}" ]
-  then
+  false                  || vcs_date=$(git log -1 --pretty=format:%cs || echo -n '')
+  [ -z "${vcs_date:-}" ] || vcs_id=$(git log -1 --pretty=format:%h || echo -n '')
+  [ -z "${vcs_date:-}" ] || vcs_tag=$(git describe --tags || echo -n '')
+  [ -n "${vars_date:-}${vcs_date:-}" ] || {
     log "No VCS substitutions or clone, using encoded version: $src_version" >&2
     echo $src_version
     return 0
-  fi
-  vcs_tag=$(git describe --tags || echo -n '')
+  }
 
-  vcs_tag=${vcs_tag:-$vars_tag}
-  vcs_date=${vcs_date:-$vars_date}
-  vcs_id=${vcs_id:-$vars_id}
+  vcs_tag=${vcs_tag:-${vars_tag:-}}
+  vcs_date=${vcs_date:-${vars_date:-}}
+  vcs_id=${vcs_id:-${vars_id:-}}
 
   if [ "v$src_version" = "$vcs_tag" ]
   then
