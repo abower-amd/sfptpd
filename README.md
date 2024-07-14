@@ -93,10 +93,19 @@ two consequences:
    that will result in wasteful clock comparisons for all the PHC devices
    that are effectively read only.
 
+#### Workaround 1: list clocks explicitly
+
 The current best recommendation to mitigate these limitations is to list
 explicitly the network ports of the NIC clocks to be disciplined with
 `clock_list`. Typically other software expects the clocks to be explicitly
 listed anyway.
+
+#### Workaround 2: clock deduplication
+
+An experimental option, `phc_dedup on` will identify duplicate PHC devices
+for a single underlying clock and retain only one which has effective control.
+This is achieved via a destructive test so should not be done while those
+interfaces are in use by applications for timestamping.
 
 ## Footnotes
 
