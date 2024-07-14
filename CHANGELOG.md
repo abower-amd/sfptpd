@@ -82,6 +82,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
     ```
 - Add Y2038 support when built for 32-bit targets with 64-bit time enabled.
   (Xilinx-CNS/sfptpd#12)
+- Add hardware clock control utility 'tstool'. This is a diagnostic tool
+  whose interface is not guaranteed to be stable.
 
 > [!NOTE]
 > Current versions of Onload do not support the acceleration of sfptpd.
