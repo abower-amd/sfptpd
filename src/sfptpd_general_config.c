@@ -1674,6 +1674,7 @@ static struct sfptpd_config_section *general_config_create(const char *name,
 		new->clocks.persistent_correction = SFPTPD_DEFAULT_PERSISTENT_CLOCK_CORRECTION;
 		new->clocks.discipline_all = SFPTPD_DEFAULT_DISCIPLINE_ALL_CLOCKS;
 		new->clocks.num_clocks = 0;
+		new->clocks.no_initial_correction = false;
 		new->epoch_guard = SFPTPD_DEFAULT_EPOCH_GUARD;
 
 		new->non_sfc_nics = SFPTPD_DEFAULT_NON_SFC_NICS;
